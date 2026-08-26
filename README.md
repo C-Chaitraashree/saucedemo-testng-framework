@@ -5,18 +5,6 @@ UI, API, database, and CI/CD testing project built on saucedemo.com and reqres.i
 ## Tech Stack
 Java, Selenium WebDriver, TestNG, Postman, MySQL, Jenkins, Maven, ExtentReports
 
-## Project Structure
-```
-src/main/java/utils        -> DriverFactory, DBUtil
-src/test/java/pages        -> Page Object classes (LoginPage, HomePage, CartPage, CheckoutPage)
-src/test/java/tests        -> TestNG test classes
-src/test/java/listeners    -> ExtentReports TestNG listener
-sql/                        -> schema.sql and queries.sql
-postman/                    -> Postman collection and environment
-Jenkinsfile                 -> CI/CD pipeline
-testng.xml                  -> Test suite configuration
-```
-
 ## What This Covers
 - UI automation on saucedemo.com using Page Object Model
 - Login tested with multiple credential sets via TestNG DataProvider
@@ -36,17 +24,13 @@ testng.xml                  -> Test suite configuration
 
 ### Setup Database
 ```
-mysql -u root -p < sql/schema.sql
+mysql -u root -p
+source sql/schema.sql;
 ```
 
 ### Run UI + DB Tests
 ```
 mvn clean test
-```
-
-### Run Only Smoke Group
-```
-mvn test -Dgroups=smoke
 ```
 
 ### View Report
