@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/your-username/saucedemo-testng-framework.git'
+                git branch: 'main', url: 'https://github.com/C-Chaitraashree/saucedemo-testng-framework'
             }
         }
 
