@@ -1,0 +1,20 @@
+{
+  "name": "Reqres Environment",
+  "values": [
+    {
+      "key": "baseUrl",
+      "value": "https://reqres.in/api",
+      "enabled": true
+    },
+    {
+      "key": "token",
+      "value": "",
+      "enabled": true
+    },
+    {
+      "key": "createdUserId",
+      "value": "",
+      "enabled": true
+    }
+  ]
+}

@@ -1,0 +1,115 @@
+{
+  "info": {
+    "name": "Reqres API Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "GET List Users",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/users?page=2"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Response has data array', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.data).to.be.an('array');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "POST Create User",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\": \"{{randomName}}\", \"job\": \"QA Engineer\"}"
+        },
+        "url": "{{baseUrl}}/users"
+      },
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.environment.set('randomName', 'Tester_' + Date.now());"
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 201', function () {",
+              "    pm.response.to.have.status(201);",
+              "});",
+              "pm.test('Response has id', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.id).to.exist;",
+              "    pm.environment.set('createdUserId', jsonData.id);",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "PUT Update User",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\": \"Updated Name\", \"job\": \"Senior QA Engineer\"}"
+        },
+        "url": "{{baseUrl}}/users/{{createdUserId}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Job field updated', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.job).to.eql('Senior QA Engineer');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "DELETE User",
+      "request": {
+        "method": "DELETE",
+        "url": "{{baseUrl}}/users/{{createdUserId}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 204', function () {",
+              "    pm.response.to.have.status(204);",
+              "});"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
